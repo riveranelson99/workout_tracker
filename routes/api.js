@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const db = require('../models')
 
+// first api route  to load the latest workout that took place according to the database
 router.get('/api/workouts', (req, res) => {
   db.Workout.aggregate([
     {
@@ -18,6 +19,7 @@ router.get('/api/workouts', (req, res) => {
     })
 });
 
+// second api route to track a weeklong range of workouts that took place according to the database
 router.get('/api/workouts/range', (req, res) => {
   db.Workout.aggregate([
     {
@@ -38,8 +40,8 @@ router.get('/api/workouts/range', (req, res) => {
     })
 });
 
+// third api route to create a new workout from our user
 router.post('/api/workouts', ({ body }, res) => {
-  console.log(body);
   db.Workout.create(body)
     .then(data => {
       res.json(data);
@@ -49,6 +51,7 @@ router.post('/api/workouts', ({ body }, res) => {
     })
 });
 
+// final api route to update any newly created workout to add additional workouts to it, or "continue" the workout as termed by the public folder
 router.put('/api/workouts/:id', (req, res) => {
   db.Workout.findByIdAndUpdate(
     req.params.id,

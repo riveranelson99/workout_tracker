@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const path = require('path');
 
+// set up the routes to load the individual html pages
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
 });
